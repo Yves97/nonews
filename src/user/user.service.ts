@@ -1,4 +1,4 @@
-import { ConflictException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
@@ -61,6 +61,14 @@ export class UserService {
         }
         const accessToken = await this.jwtService.sign(jwtPayload);
         return {accessToken};
+    }
+
+    async getUser(id: number): Promise<User>{
+        const user = await this.userRepository.findOne(id)
+        if(!user){
+            throw new NotFoundException('User Not Found')
+        }
+        return user
     }
 
     async validateUserPassword(userDto: CreateUserDto){
