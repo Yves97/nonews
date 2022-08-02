@@ -16,7 +16,7 @@ export class UserService {
         private jwtService : JwtService
     ){}
 
-    async createUser(createUserDto: CreateUserDto): Promise<User>{
+    async createUser(createUserDto: CreateUserDto,avatar: Express.Multer.File): Promise<User>{
         const newUser = new User()
         newUser.firstname = createUserDto.firstname
         newUser.lastname = createUserDto.lastname
@@ -24,9 +24,11 @@ export class UserService {
         newUser.job = createUserDto.job
         newUser.phone = createUserDto.phone
         newUser.role = createUserDto.role || UserRole.BLOGGER
+        newUser.avatar = avatar ? avatar.filename : ''
+        //status { 0: inactive, 1: active}
+        newUser.status = createUserDto.status || 1
         newUser.salt = await bcrypt.genSalt()
         newUser.password = await this.hashPassword(createUserDto.password,newUser.salt)
-
         const create = await this.userRepository.create(newUser)
 
         try {
@@ -69,6 +71,11 @@ export class UserService {
             throw new NotFoundException('User Not Found')
         }
         return user
+    }
+
+    async getUsers(): Promise<User[]>{
+        const users = await this.userRepository.find()
+        return users;
     }
 
     async validateUserPassword(userDto: CreateUserDto){

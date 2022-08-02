@@ -29,4 +29,9 @@ export class CreateUserDto {
     password : string;
 
     role : UserRole;
+
+    // @IsNotEmpty()
+    // @IsString()
+    // avatar: string;
+    status: number;
 }

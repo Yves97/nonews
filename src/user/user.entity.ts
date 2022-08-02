@@ -8,39 +8,44 @@ import * as bcrypt from 'bcrypt';
 export class User extends BaseEntity{
 
     @PrimaryGeneratedColumn()
-    id : number;
+    id: number;
 
     @Column()
-    firstname : string;
+    firstname: string;
 
     @Column()
-    lastname : string;
+    lastname: string;
 
     @Column()
-    job : string;
+    job: string;
 
     @Column()
-    email : string;
+    email: string;
 
     @Column()
-    phone : string;
+    phone: string;
 
     @Column()
-    password :string;
+    password: string;
 
     @Column()
-    salt :string;
+    salt: string;
 
     @Column({
         type : 'enum',
         enum : UserRole,
         default : UserRole.BLOGGER
     })
-    role : UserRole
+    role: UserRole
+
+    @Column()
+    avatar: string;
+
+    @Column()
+    status: number;
 
     @CreateDateColumn()
-    createdDate : Date
-
+    createdDate : Date;
 
     async validatePassword(password: string):Promise<boolean>{
         const isPasswordMatched = await bcrypt.compare(password,this.password)
