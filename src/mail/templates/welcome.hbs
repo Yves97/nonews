@@ -1,0 +1,162 @@
+<style>
+    body {
+  font-family: arial, helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #444;
+  background: #f2f2f2;
+}
+
+p {
+  margin: 10px 0;
+}
+
+a {
+  color: #e67e22;
+  text-decoration: none;
+  font-weight: bold;
+}
+a:hover {
+  color: #bf6516;
+}
+
+/**
+ * Parent <table>
+ */
+.wrapper {
+  margin: 20px 0;
+}
+
+/**
+ * Main content area, responsive
+ */
+.content {
+  display: block !important;
+  max-width: 600px !important;
+  margin: 0 auto !important;
+  clear: both !important;
+  background: white;
+}
+
+/**
+ * Style for the "WebDesigner" logo
+ */
+.brand {
+  font-size: 30px;
+  margin: 20px 0;
+  /**
+   * Make the word "web" orange
+   */
+}
+
+/**
+ * Date email was sent
+ */
+.date {
+  color: #999;
+}
+
+/**
+ * "Thank you for contacting us"
+ */
+h1 {
+  font-size: 30px;
+  color: #000;
+  margin: 30px 0;
+}
+
+/**
+ * "Hear what others are saying"
+ */
+h2 {
+  font-size: 20px;
+  color: #000;
+  margin: 30px 0;
+}
+
+/**
+ * Apply a border to the top and bottom of the 
+ * main content area
+ */
+.border {
+  border-top: 2px solid #e67e22;
+  border-bottom: 2px solid #e67e22;
+}
+
+/**
+ * Greyed out contact details at footer
+ */
+.contact {
+  font-size: 11px;
+  color: #999;
+}
+
+/**
+ * Individual Testimonial
+ */
+.testimonial {
+  margin-bottom: 10px;
+}
+.testimonial h3 {
+  margin-bottom: 0;
+}
+.testimonial p {
+  margin: 5px 0 0;
+}
+.testimonial .stars {
+  color: #e67e22;
+}
+</style>
+
+
+<table width="100%" class="wrapper">
+    <tr>
+        <td class="container"> 
+            <div class="content">
+                <table cellspacing="20" width="100%">
+                    <tr>
+                        <td>
+                            <p class="brand"><span>Bienvenu(e)!</p> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="border">
+                            <p class="date">{{date}}</p>
+                            <h1>Merci de nous avoir fait confiance, {{firstname}}</h1>
+                            <p>Hello {{lastname}}</p>
+                            {{!-- <p>Thank you for your enquiry. We will be in contact with you as soon as possible. </p> --}}
+                            <p>Vous pouvez nous joindre au numéro suivant: 1300 123 456. </p>
+                            
+                            <h2>Ce que les autres utilisateurs disent de la plateforme</h2>
+                            
+                            <div class="testimonial">
+                                <h3>Jane Doe</h3>
+                                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p>"Web Designer are very professional, would recommend to anyone"</p>
+                            </div>
+                            
+                            <div class="testimonial">
+                                <h3>Bob Dylan</h3>
+                                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p>"C'est l'une des meilleurs plateformes de blog que j'ai connue, merci nonews"</p>
+                            </div>
+                            
+                            <div class="testimonial">    
+                                <h3>George Harrison</h3>
+                                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                                <p>"My website is so good I could gently weep"</p>
+                            </div>
+                            {{!-- <h2>While you wait</h2>
+                            <p>Check out all the other businesses just like yours that <a href="#">we've helped</a> --}}
+                        </td>
+                    </tr>
+                    <tr class="contact">
+                        <td align="center"> 
+                            NoNews Abidjan Côte d'Ivoire - 1300 123 456 - info@nonews.com
+                        </td>
+                    </tr>
+                </table>
+            </div> 
+        </td>
+    </tr>
+</table>

@@ -7,13 +7,15 @@ import { UserRole } from './user.role.enum';
 import * as bcrypt from 'bcrypt';
 import { JwtPayload } from './user-jwt-payload.interface';
 import { JwtService } from '@nestjs/jwt';
+import { MailService } from 'src/mail/mail.service';
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(UserRepository)
         private userRepository: UserRepository,
-        private jwtService : JwtService
+        private jwtService: JwtService,
+        private mailService: MailService
     ){}
 
     async createUser(createUserDto: CreateUserDto,avatar: Express.Multer.File): Promise<User>{
@@ -33,6 +35,7 @@ export class UserService {
 
         try {
             await this.userRepository.save(newUser)
+            await this.mailService.sendWelcome(newUser)
             return create;
         } catch (error) {
             if(error.code === "23505"){

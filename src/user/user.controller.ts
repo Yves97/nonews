@@ -33,6 +33,7 @@ export class UserController {
             cb(null,true)
         }
     }))
+    
     @Post('/register')
     async createUser(@Body(ValidationPipe) createUserDto : CreateUserDto, @UploadedFile() avatar: Express.Multer.File):Promise<User|{}>{
         const newUser = await this.userService.createUser(createUserDto,avatar)

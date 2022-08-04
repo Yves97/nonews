@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import {PassportModule} from '@nestjs/passport'
 import { JwtStrategy } from './jwt-strategy';
 import { jwtContants } from './constants';
+import { MailModule } from 'src/mail/mail.module';
 
 @Module({
     imports : [
@@ -17,7 +18,8 @@ import { jwtContants } from './constants';
                 expiresIn : 3600
             }
         }),
-        PassportModule.register({defaultStrategy : 'jwt'})  
+        PassportModule.register({defaultStrategy : 'jwt'}),
+        MailModule
     ],
     controllers : [UserController],
     providers : [UserService,JwtStrategy],
