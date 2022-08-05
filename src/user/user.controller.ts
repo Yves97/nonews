@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards, ValidationPipe, UseInterceptors, UploadedFile, Param, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, ValidationPipe, UseInterceptors, UploadedFile, Param, Res, Query } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
@@ -8,12 +8,14 @@ import { UserRole } from './user.role.enum';
 import { Express } from 'express';
 import {diskStorage} from 'multer'
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBearerAuth } from '@nestjs/swagger';
+
 
 
 @Controller('auth')
 export class UserController {
 
-    constructor(private userService : UserService){}
+    constructor(private userService: UserService){}
 
     @UseInterceptors(FileInterceptor('avatar',{
         storage : diskStorage({
@@ -35,7 +37,7 @@ export class UserController {
     }))
     
     @Post('/register')
-    async createUser(@Body(ValidationPipe) createUserDto : CreateUserDto, @UploadedFile() avatar: Express.Multer.File):Promise<User|{}>{
+    async createUser(@Body(ValidationPipe) createUserDto: CreateUserDto,@UploadedFile() avatar: Express.Multer.File): Promise<User|{}>{
         const newUser = await this.userService.createUser(createUserDto,avatar)
         if(newUser){
             newUser.password = undefined
@@ -48,21 +50,24 @@ export class UserController {
     }
     
     @Get('pictures/:filepath')
-    async picture(@Param('filepath') avatar,@Res() res){
+    async picture(@Param('filepath') avatar: string,@Res() res){
         return await res.sendFile(avatar,{root : './files'})
     }
 
+
     @Post('/login')
-    async loginUser(@Body() createUserDto : CreateUserDto): Promise<{accessToken: string}>{
+    async loginUser(@Body() createUserDto: CreateUserDto): Promise<{accessToken: string}>{
         return await this.userService.loginUser(createUserDto)
     }
 
+    @ApiBearerAuth()
     @UseGuards(AuthGuard())
     @Get('user/:id')
-    async getUser(id: number): Promise<User>{
+    async getUser(@Param('id') id: number): Promise<User>{
         return this.userService.getUser(id)
     }
 
+    @ApiBearerAuth()
     @Roles(UserRole.ADMIN)
     @UseGuards(AuthGuard(), RolesGuard)
     @Get('users')
