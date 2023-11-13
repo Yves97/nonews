@@ -15,7 +15,7 @@ export class CategoryController {
 
     @ApiBearerAuth()
     @Roles(UserRole.ADMIN)
-    @UseGuards(AuthGuard(),RolesGuard)
+    @UseGuards(AuthGuard(), RolesGuard)
     @Post()
     async createCategory(@Body(ValidationPipe) createCategoryDto: CreateCategoryDto): Promise<Category>{
         return await this.categoryService.createCategory(createCategoryDto)

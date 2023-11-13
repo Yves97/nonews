@@ -25,7 +25,7 @@ export class CategoryService {
             return create;
         } catch (error) {
             if(error.code === "23505"){
-                throw new ConflictException('Categorie e deja existante')
+                throw new ConflictException('Categorie deja existante')
             }else{
                 throw new InternalServerErrorException()
             }
